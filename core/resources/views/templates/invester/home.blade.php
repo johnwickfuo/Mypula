@@ -123,14 +123,25 @@
                     @lang('One account for games, investment plans, stocks, forex and crypto trading. Grow your money on') {{ $siteName }} @lang('with tools built for every kind of earner.')
                 </p>
                 <div class="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row md:justify-start">
-                    <a href="{{ route('user.register') }}"
-                        class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-600 px-8 py-4 text-center font-black text-white shadow-2xl shadow-emerald-500/30 transition-all duration-300 hover:scale-[1.03]">
-                        <span class="relative z-10 flex items-center justify-center gap-2"><i class="ri-rocket-2-line text-xl"></i> @lang('Get Started Free')</span>
-                    </a>
-                    <a href="{{ route('user.login') }}"
-                        class="rounded-2xl border-2 border-white/20 bg-white/5 px-8 py-4 text-center font-black text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-blue-400/60 hover:bg-white/10">
-                        <span class="flex items-center justify-center gap-2"><i class="ri-login-box-line text-xl"></i> @lang('Login')</span>
-                    </a>
+                    @guest
+                        <a href="{{ route('user.register') }}"
+                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-600 px-8 py-4 text-center font-black text-white shadow-2xl shadow-emerald-500/30 transition-all duration-300 hover:scale-[1.03]">
+                            <span class="relative z-10 flex items-center justify-center gap-2"><i class="ri-rocket-2-line text-xl"></i> @lang('Get Started Free')</span>
+                        </a>
+                        <a href="{{ route('user.login') }}"
+                            class="rounded-2xl border-2 border-white/20 bg-white/5 px-8 py-4 text-center font-black text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-blue-400/60 hover:bg-white/10">
+                            <span class="flex items-center justify-center gap-2"><i class="ri-login-box-line text-xl"></i> @lang('Login')</span>
+                        </a>
+                    @else
+                        <a href="{{ route('user.home') }}"
+                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-500 via-blue-600 to-purple-600 px-8 py-4 text-center font-black text-white shadow-2xl shadow-blue-500/30 transition-all duration-300 hover:scale-[1.03]">
+                            <span class="relative z-10 flex items-center justify-center gap-2"><i class="ri-dashboard-line text-xl"></i> @lang('Go to Dashboard')</span>
+                        </a>
+                        <a href="{{ route('user.deposit.index') }}"
+                            class="rounded-2xl border-2 border-white/20 bg-white/5 px-8 py-4 text-center font-black text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-blue-400/60 hover:bg-white/10">
+                            <span class="flex items-center justify-center gap-2"><i class="ri-wallet-3-line text-xl"></i> @lang('Deposit')</span>
+                        </a>
+                    @endguest
                 </div>
                 <div class="mt-8 flex items-center justify-center gap-6 text-sm text-gray-400 md:justify-start">
                     <span class="flex items-center gap-2"><i class="ri-shield-check-line text-green-400"></i> @lang('Secure')</span>
@@ -261,14 +272,21 @@
                 <h2 class="font-[Orbitron] text-3xl font-black text-white md:text-5xl">@lang('Ready to Grow with') {{ $siteName }}?</h2>
                 <p class="mx-auto mt-4 max-w-xl text-gray-300">@lang('Join thousands of members already earning across games, investments and the markets. Your journey starts today.')</p>
                 <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <a href="{{ route('user.register') }}"
-                        class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-600 px-10 py-4 font-black text-white shadow-2xl shadow-emerald-500/30 transition-all duration-300 hover:scale-[1.03]">
-                        <span class="relative z-10 flex items-center gap-2"><i class="ri-user-add-line text-xl"></i> @lang('Create Free Account')</span>
-                    </a>
-                    <a href="{{ route('user.login') }}"
-                        class="rounded-2xl border-2 border-white/20 bg-white/5 px-10 py-4 font-black text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-blue-400/60">
-                        @lang('I already have an account')
-                    </a>
+                    @guest
+                        <a href="{{ route('user.register') }}"
+                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-600 px-10 py-4 font-black text-white shadow-2xl shadow-emerald-500/30 transition-all duration-300 hover:scale-[1.03]">
+                            <span class="relative z-10 flex items-center gap-2"><i class="ri-user-add-line text-xl"></i> @lang('Create Free Account')</span>
+                        </a>
+                        <a href="{{ route('user.login') }}"
+                            class="rounded-2xl border-2 border-white/20 bg-white/5 px-10 py-4 font-black text-white backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-blue-400/60">
+                            @lang('I already have an account')
+                        </a>
+                    @else
+                        <a href="{{ route('user.home') }}"
+                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-500 via-blue-600 to-purple-600 px-10 py-4 font-black text-white shadow-2xl shadow-blue-500/30 transition-all duration-300 hover:scale-[1.03]">
+                            <span class="relative z-10 flex items-center gap-2"><i class="ri-dashboard-line text-xl"></i> @lang('Go to Dashboard')</span>
+                        </a>
+                    @endguest
                 </div>
             </div>
         </section>
