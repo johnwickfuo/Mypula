@@ -26,7 +26,7 @@ $app = Application::configure(basePath: dirname(__DIR__))
                 Route::prefix('api')
                     ->middleware(['api', 'maintenance'])
                     ->group(base_path('routes/api.php'));
-                Route::middleware(['web', 'admin.ip.block'])
+                Route::middleware(['web'])
                     ->namespace('Admin')
                     ->prefix(config('app.admin_route', 'admin'))
                     ->name('admin.')
@@ -77,7 +77,6 @@ $app = Application::configure(basePath: dirname(__DIR__))
             'kyc'                   => KycMiddleware::class,
             'registration.complete' => RegistrationStep::class,
             'maintenance'           => MaintenanceMode::class,
-            'admin.ip.block'        => \App\Http\Middleware\BlockAdminIp::class,
         ]);
 
         $middleware->validateCsrfTokens(

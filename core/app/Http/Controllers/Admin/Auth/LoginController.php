@@ -50,13 +50,7 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        // 1. IP Ban Check
         $ip = getRealIP();
-        $isBanned = \App\Models\AdminIpBan::where('ip', $ip)->first();
-        if ($isBanned) {
-            $notify[] = ['error', 'Your IP has been banned. Reason: ' . $isBanned->reason];
-            return back()->withNotify($notify);
-        }
 
         $this->validateLogin($request);
 
