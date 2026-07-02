@@ -78,9 +78,6 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            // Clear IP-based failure count on success
-            $this->limiter()->clear('fail_ip_' . $ip);
-
             $admin = Auth::guard('admin')->user();
             
             $userAgent = osBrowser();
@@ -120,22 +117,10 @@ class LoginController extends Controller
 
         }
 
-        // 1. Standard per-username throttling
+        // Standard per-username throttling
         $this->incrementLoginAttempts($request);
 
-        // 2. IP-based strict banning (3 failures from ANY username)
-        $ipKey = 'fail_ip_' . $ip;
-        $this->limiter()->hit($ipKey, 86400); // Retain strikes for 1 day
-
-        if ($this->limiter()->attempts($ipKey) >= 3) {
-            \App\Models\AdminIpBan::firstOrCreate([
-                'ip' => $ip
-            ], [
-                'reason' => 'Too many failed login attempts (3 strikes)'
-            ]);
-            $notify[] = ['error', 'Too many failed attempts. Your IP has been banned.'];
-            return back()->withNotify($notify);
-        }
+        // Automatic IP banning after failed login attempts has been disabled.
 
         return $this->sendFailedLoginResponse($request);
     }
