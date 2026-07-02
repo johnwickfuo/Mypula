@@ -129,7 +129,7 @@
         <div class="fixed top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0b64f4]/20 blur-[120px] pointer-events-none"></div>
         <div class="fixed bottom-0 left-[10rem] w-[700px] h-[200px] translate-y-1/2 -translate-x-1/2 rounded-full bg-[#0b64f4] blur-[120px] pointer-events-none"></div>
 
-        <div class="max-w-md mx-auto p-3 relative z-10" id="appCapsule">
+        <div class="{{ request()->routeIs('home') ? 'max-w-md md:max-w-5xl lg:max-w-6xl xl:max-w-7xl' : 'max-w-md' }} mx-auto p-3 relative z-10" id="appCapsule">
             
             <!-- Header -->
             @include($activeTemplate . 'partials.app_header')
