@@ -7,7 +7,7 @@
     
     <!-- Scripts & Config -->
     <script src="{{ asset('assets/global/js/firebase/firebase-configs.js') }}"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ asset('assets/theme/theme3/frontend/css/tailwind.min.css') }}">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Share+Tech+Mono&display=swap" rel="stylesheet">

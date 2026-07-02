@@ -16,7 +16,7 @@
     <link rel="shortcut icon" type="image/png" href="{{ siteFavicon() }}">
     <link rel="apple-touch-icon" href="{{ siteLogo() }}">
     
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js" defer></script>
     <title>{{ gs()->siteName(__($pageTitle ?? '')) }}</title>
     
     <link href="{{ asset('assets/theme/theme3/frontend/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
@@ -34,6 +34,8 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 
     <!-- Material icons-->
@@ -69,31 +71,8 @@
         }
     </style>
 
-    <!-- Tailwind Css -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        orbitron: ['Orbitron', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                    },
-                    animation: {
-                        'wiggle': 'wiggle 1s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        wiggle: {
-                            '0%, 100%': { transform: rotate('-3deg') },
-                            '50%': { transform: rotate('3deg') },
-                        }
-                    }
-                },
-            },
-        };
-    </script>
+    <!-- Tailwind Css (pre-compiled static build; replaces the runtime Play CDN) -->
+    <link rel="stylesheet" href="{{ asset('assets/theme/theme3/frontend/css/tailwind.min.css') }}">
 
     <style>
         @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
