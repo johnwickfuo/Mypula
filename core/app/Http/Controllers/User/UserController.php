@@ -659,7 +659,7 @@ public function commissions()
 
         $pageTitle  = 'User Data';
         $info       = json_decode(json_encode(getIpInfo()), true);
-        $mobileCode = @implode(',', $info['code'] ?? []);
+        $mobileCode = @implode(',', (array)($info['code'] ?? []));
         $countries  = json_decode(file_get_contents(resource_path('views/partials/country.json')));
 
         return view('Template::user.user_data', compact('pageTitle', 'user', 'countries', 'mobileCode'));

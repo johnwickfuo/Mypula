@@ -152,11 +152,11 @@ class LoginController extends Controller
             $userLogin->country      = $exist->country;
         } else {
             $info                    = json_decode(json_encode(getIpInfo()), true);
-            $userLogin->longitude    = @implode(',', $info['long']);
-            $userLogin->latitude     = @implode(',', $info['lat']);
-            $userLogin->city         = @implode(',', $info['city']);
-            $userLogin->country_code = @implode(',', $info['code']);
-            $userLogin->country      = @implode(',', $info['country']);
+            $userLogin->longitude    = @implode(',', (array)$info['long']);
+            $userLogin->latitude     = @implode(',', (array)$info['lat']);
+            $userLogin->city         = @implode(',', (array)$info['city']);
+            $userLogin->country_code = @implode(',', (array)$info['code']);
+            $userLogin->country      = @implode(',', (array)$info['country']);
         }
 
         $userAgent          = osBrowser();
