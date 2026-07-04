@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('user_ai_bots', function (Blueprint $table) {
-            $table->dateTime('next_profit_at')->nullable()->after('last_profit_at');
-        });
+        if (Schema::hasTable('user_ai_bots') && !Schema::hasColumn('user_ai_bots', 'next_profit_at')) {
+            Schema::table('user_ai_bots', function (Blueprint $table) {
+                $table->dateTime('next_profit_at')->nullable()->after('last_profit_at');
+            });
+        }
     }
 
     /**
@@ -25,8 +27,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('user_ai_bots', function (Blueprint $table) {
-            $table->dropColumn('next_profit_at');
-        });
+        if (Schema::hasTable('user_ai_bots') && Schema::hasColumn('user_ai_bots', 'next_profit_at')) {
+            Schema::table('user_ai_bots', function (Blueprint $table) {
+                $table->dropColumn('next_profit_at');
+            });
+        }
     }
 };
