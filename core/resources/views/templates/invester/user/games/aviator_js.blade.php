@@ -835,16 +835,28 @@
 
         generateRandomCrashPoint() {
             // Algorithm to simulate realistic crash curve
+            let crash;
+
             // 1% chance of instant crash at 1.00
-            if (Math.random() < 0.01) return 1.00;
-            
-            // Weighted random: simpler floats are more common
-            // E = 0.99
-            // Multiplier = E / (E - Math.random()) -> Standard Crash Algo
-            const E = 0.96; // House Edge
-            const r = Math.random();
-            let crash = Math.floor(100 * E / (1 - r)) / 100;
+            if (Math.random() < 0.01) {
+                crash = 1.00;
+            } else {
+                // Weighted random: simpler floats are more common
+                // Multiplier = E / (1 - Math.random()) -> Standard Crash Algo
+                const E = 0.96; // House Edge
+                const r = Math.random();
+                crash = Math.floor(100 * E / (1 - r)) / 100;
+            }
+
             if (crash < 1.00) crash = 1.00;
+
+            // Enforce admin minimum multiplier: the plane must fly to at least
+            // this value before it can crash. Re-roll just above the floor so it
+            // is not always pinned to the exact minimum.
+            if (min_multiplier > 1.00 && crash < min_multiplier) {
+                crash = Math.floor((min_multiplier + Math.random() * 1.00) * 100) / 100;
+            }
+
             if (crash > max_multiplier) crash = max_multiplier; // Cap at defined max multiplier
             return crash;
         }

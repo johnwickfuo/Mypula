@@ -651,6 +651,7 @@
         var min_bet_amount = parseFloat('{{ $setting->min_bet }}');
         var max_bet_amount = parseFloat('{{ $setting->max_bet }}');
         var max_multiplier = parseFloat('{{ $setting->max_multiplier ?? 500 }}'); // Max Crash Point
+        var min_multiplier = parseFloat('{{ $setting->min_multiplier ?? 1 }}'); // Min Crash Point (plane flies at least this far)
         var current_game_data = 0;
 
         var successMessage = '';
