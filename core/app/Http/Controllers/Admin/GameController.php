@@ -33,7 +33,8 @@ class GameController extends Controller
             'win_chance' => 'required|numeric|min:0|max:10000',
             'min_bet' => 'required|numeric|min:0',
             'max_bet' => 'required|numeric|min:0',
-            'max_multiplier' => 'nullable|numeric|min:1',
+            'min_multiplier' => 'nullable|numeric|min:1',
+            'max_multiplier' => 'nullable|numeric|min:1|gte:min_multiplier',
             'bet_options' => 'required|string',
             'status' => 'nullable|in:0,1,on',
             'image' => 'nullable|image|mimes:jpg,jpeg,png'
@@ -43,6 +44,7 @@ class GameController extends Controller
         $game->win_chance = $request->win_chance;
         $game->min_bet = $request->min_bet;
         $game->max_bet = $request->max_bet;
+        $game->min_multiplier = $request->min_multiplier ?? 1;
         $game->max_multiplier = $request->max_multiplier ?? 500;
         $game->bet_options = $request->bet_options;
         $game->status = $request->status ? 1 : 0;

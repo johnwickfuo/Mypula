@@ -79,15 +79,29 @@ class AviatorRound extends Model
     {
         // Simple random for now - can be replaced with provably fair algorithm
         $random = mt_rand(100, 1000) / 100;
-        
+
         // Weight distribution to make lower multipliers more common
         if ($random < 1.5) {
-            return round(mt_rand(101, 200) / 100, 2);
+            $crashPoint = round(mt_rand(101, 200) / 100, 2);
         } elseif ($random < 3.0) {
-            return round(mt_rand(150, 500) / 100, 2);
+            $crashPoint = round(mt_rand(150, 500) / 100, 2);
         } else {
-            return round(mt_rand(200, 1000) / 100, 2);
+            $crashPoint = round(mt_rand(200, 1000) / 100, 2);
         }
+
+        // Enforce the admin-configured minimum multiplier: the plane must fly
+        // to at least this value before it is allowed to crash. When a rolled
+        // point falls below the floor, re-roll it just above the floor so the
+        // result is not always pinned to the exact minimum.
+        $minMultiplier = (float) optional(
+            GameSetting::where('game_key', 'aviator')->first()
+        )->min_multiplier;
+
+        if ($minMultiplier > 1.0 && $crashPoint < $minMultiplier) {
+            $crashPoint = round($minMultiplier + (mt_rand(0, 100) / 100), 2);
+        }
+
+        return $crashPoint;
     }
 
     /**

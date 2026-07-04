@@ -20,6 +20,7 @@ class TradingSettingController extends Controller
             'min_amount'   => 'required|numeric|min:0',
             'max_amount'   => 'required|numeric|gt:min_amount',
             'daily_limit'  => 'required|numeric|min:0',
+            'win_rate'     => 'nullable|numeric|min:0|max:100',
             'time_setting' => 'required|string', // comma separated like 1,3,5,15
         ]);
 
@@ -29,6 +30,7 @@ class TradingSettingController extends Controller
             'min_amount'   => $request->min_amount,
             'max_amount'   => $request->max_amount,
             'daily_limit'  => $request->daily_limit,
+            'win_rate'     => $request->win_rate,
             'time_setting' => $request->time_setting,
         ];
         $general->save();

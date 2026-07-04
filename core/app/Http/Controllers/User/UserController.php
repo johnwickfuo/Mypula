@@ -299,9 +299,26 @@ class UserController extends Controller
             // If failed, we could use a fallback or stick to random. Let's assume random fallback for resilience, 
             // but the primary logic is now real.
             
+            // Admin-configured win frequency per trade category. When a win rate
+            // is set (e.g. 90), the outcome is driven by that probability so
+            // users win roughly that often (9/10). When it is left blank, the
+            // result falls back to the real entry/exit price comparison.
+            if ($trade->category == 'Forex') {
+                $tradeSetting = gs()->forex_setting;
+            } elseif ($trade->category == 'Stocks') {
+                $tradeSetting = gs()->stock_setting;
+            } else {
+                $tradeSetting = gs()->trading_setting; // Options
+            }
+            $winRate = (isset($tradeSetting->win_rate) && $tradeSetting->win_rate !== '' && $tradeSetting->win_rate !== null)
+                ? (float) $tradeSetting->win_rate
+                : null;
+
             $win = false;
 
-            if ($exitPrice && $trade->entry_price > 0) {
+            if ($winRate !== null) {
+                $win = (mt_rand(1, 10000) / 100) <= $winRate;
+            } elseif ($exitPrice && $trade->entry_price > 0) {
                 if ($trade->type == 'up') {
                     $win = $exitPrice > $trade->entry_price;
                 } else {

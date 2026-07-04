@@ -44,6 +44,16 @@
                                     <small class="text-muted"><i>@lang('User can trade maximum this amount per day in stocks. 0 for unlimited.')</i></small>
                                 </div>
                             </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label>@lang('Win Rate')</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="number" name="win_rate" value="{{ @$setting->win_rate }}" min="0" max="100" step="any" placeholder="@lang('e.g. 90')">
+                                        <div class="input-group-text">%</div>
+                                    </div>
+                                    <small class="text-muted"><i>@lang('Percentage of trades users win (e.g. 90 = win ~9/10). Leave blank for real market-based results.')</i></small>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>@lang('Trade Duration Options (Minutes)')</label>

@@ -59,7 +59,14 @@
                                     </div>
                                     
                                     @if($game->game_key == 'aviator')
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>@lang('Min Multiplier')</label>
+                                            <input type="number" step="0.01" min="1" name="min_multiplier" class="form-control" value="{{ $game->min_multiplier ?? 1 }}">
+                                            <small class="text-muted">@lang('The plane is guaranteed to fly to at least this multiplier before it can crash. Set to 1 for no minimum.')</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>@lang('Max Multiplier')</label>
                                             <input type="number" step="0.01" name="max_multiplier" class="form-control" value="{{ $game->max_multiplier }}">
